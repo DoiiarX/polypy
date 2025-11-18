@@ -1,5 +1,5 @@
 import datetime
-from typing import Literal, Union
+from typing import Any, Literal, Union
 
 import msgspec
 
@@ -246,6 +246,7 @@ class BookEvent(
     hash: str
     bids: list[OrderSummary]
     asks: list[OrderSummary]
+    last_trade_price: str | None = None
 
     @property
     def event_type(self) -> str:
@@ -261,6 +262,7 @@ class PriceChangeEvent(
     market: str
     price_changes: list[PriceChangeSummary]
     timestamp: int
+    last_trade_price: str | None = None
 
     @property
     def event_type(self) -> str:
@@ -297,6 +299,8 @@ class LastTradePriceEvent(
     side: SIDE
     size: str
     timestamp: int
+    transaction_hash: str | None = None
+    last_trade_price: dict[str, Any] | None = None
 
     @property
     def event_type(self) -> str:
